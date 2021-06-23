@@ -31,5 +31,7 @@ namespace GeneralStoreMVC.Models
         }
 
         public DbSet<GeneralStoreMVC.Models.Product> Products { get; set; }
+
+        public DbSet<GeneralStoreMVC.Models.Customer> Customers { get; set; }
     }
 }

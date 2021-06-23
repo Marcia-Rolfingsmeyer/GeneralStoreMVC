@@ -9,40 +9,41 @@ using System.Web.Mvc;
 
 namespace GeneralStoreMVC.Controllers
 {
-    public class ProductController : Controller
+    public class CustomerController : Controller
     {
-        //Add the application DB Context (link to the database)
         private readonly ApplicationDbContext _db = new ApplicationDbContext();
 
-        // GET: Product
+        // GET: Customer
         public ActionResult Index()
         {
-            List<Product> productList = _db.Products.ToList();
-            List<Product> orderedList = productList.OrderBy(prod => prod.Name).ToList();
-            return View(orderedList);
+            List<Customer> customerList = _db.Customers.ToList();
+            List<Customer> orderList = customerList.OrderBy(cust => cust.FullName).ToList();
+            return View(orderList);
+            //return View();
         }
 
-        // GET: Product
+        // GET : Customer/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Product
+        // POST: Customer/Create
         [HttpPost]
-        public ActionResult Create(Product product)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Customer customer)
         {
             if (ModelState.IsValid)
             {
-                _db.Products.Add(product);
+                _db.Customers.Add(customer);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(product);
+            return View(customer);
         }
 
         // GET : Delete
-        // Product/Delete/{id}
+        // Customer/Delete/{id}
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -52,60 +53,59 @@ namespace GeneralStoreMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = _db.Products.Find(id);
-            if (product == null)
+            Customer customer = _db.Customers.Find(id);
+            if (customer == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return View(customer);
         }
 
         // GET : Edit
-        // Product/Edit/{id}
+        // Customer/Edit/{id}
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = _db.Products.Find(id);
-            if (product == null)
+            Customer customer = _db.Customers.Find(id);
+            if (customer == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return View(customer);
         }
 
-
         // POST : Edit
-        // Product/Edit/{id}
+        // Customer/Edit/{id}
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Product product)
+        public ActionResult Edit(Customer customer)
         {
             if (ModelState.IsValid)
             {
-                _db.Entry(product).State = EntityState.Modified;
+                _db.Entry(customer).State = EntityState.Modified;
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(product);
+            return View(customer);
         }
 
         // GET : Details
-        // Product/Details/{id}
-        public ActionResult Details(int? id) 
+        // Customer/Details/{id}
+        public ActionResult Details(int? id)
         {
-            if (id == null) 
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = _db.Products.Find(id);
-            if (product == null) 
+            Customer customer = _db.Customers.Find(id);
+            if (customer == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return View(customer);
         }
     }
 }
