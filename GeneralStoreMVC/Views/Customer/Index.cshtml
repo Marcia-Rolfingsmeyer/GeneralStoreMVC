@@ -14,21 +14,25 @@
         <th>
             @Html.DisplayNameFor(model => model.FullName)
         </th>
+        <th>
+            First Name
+        </th>
     </tr>
-    @if (Model != null){
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.FullName)
-    </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
 
-    <td>
-        @Html.ActionLink("Change", "Edit", new { id = item.CustomerID }) |
-        @Html.ActionLink("More Info", "Details", new { id = item.CustomerID }) |
-        @Html.ActionLink("Remove", "Delete", new { id = item.CustomerID })
-    </td>
-</tr>
-    }
+            <td>
+                @Html.ActionLink("Change", "Edit", new { id = item.CustomerID }) |
+                @Html.ActionLink("More Info", "Details", new { id = item.CustomerID }) |
+                @Html.ActionLink("Remove", "Delete", new { id = item.CustomerID })
+            </td>
+        </tr>
     }
 </table>

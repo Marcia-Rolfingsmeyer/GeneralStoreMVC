@@ -30,8 +30,8 @@ namespace GeneralStoreMVC.Models
             return new ApplicationDbContext();
         }
 
-        public DbSet<GeneralStoreMVC.Models.Product> Products { get; set; }
+        public DbSet<Product> Products { get; set; }
 
-        public DbSet<GeneralStoreMVC.Models.Customer> Customers { get; set; }
+        public DbSet<Customer> Customers { get; set; }
     }
 }
